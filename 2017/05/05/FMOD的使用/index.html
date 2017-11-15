@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Enjoy Code Enjoy Life">
+    <meta name="keyword"  content="">
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <title>
+        
+          FMOD的使用 - Ethan&#39;s Tech Blog | 阎覃的技术Blog
+        
+    </title>
+
+    <link rel="canonical" href="https://ethan-yt.github.io/2017/05/05/FMOD的使用/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS --> 
+    <link rel="stylesheet" href="/css/beantech.min.css">
+    
+    <!-- Pygments Highlight CSS -->
+    <link rel="stylesheet" href="/css/highlight.css">
+
+    <link rel="stylesheet" href="/css/widget.css">
+
+    <link rel="stylesheet" href="/css/rocket.css">
+
+    <link rel="stylesheet" href="/css/signature.css">
+
+    <link rel="stylesheet" href="/css/toc.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+	<!-- Modified by Yu-Hsuan Yen -->
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        
+            background-image: url('../../../../img/header_img/tag-bg.png')
+            /*post*/
+        
+    }
+    
+</style>
+
+<header class="intro-header" >
+    <!-- Signature -->
+    <div id="signature">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+                    <div class="post-heading">
+                        <div class="tags">
+                            
+                              <a class="tag" href="/tags/#OpenGL" title="OpenGL">OpenGL</a>
+                            
+                              <a class="tag" href="/tags/#C++" title="C++">C++</a>
+                            
+                        </div>
+                        <h1>FMOD的使用</h1>
+                        <h2 class="subheading"></h2>
+                        <span class="meta">
+                            Posted by Yan Tan on
+                            2017-05-05
+                        </span>
+                    </div>
+                
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+	
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Ethan&#39;s Tech Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archive/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    <!-- Modify by Yu-Hsuan Yen -->
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <p>在电脑图学课程中，老师要求我们使用OpenGL制作一个播放声音的小游戏。</p>
+<p>在课上老师教我们使用Windows的mmsystem.h中的PlaySound函数播放wav声音。不过既然使用了OpenGL，我觉得就应该将跨平台彻底实现，不要局限于Windows。所以经过我的查找，找到了一个跨平台多媒体播放库：FMOD。</p>
+<p>FMOD：<a href="http://www.fmod.org/download/" target="_blank" rel="external">http://www.fmod.org/download/</a></p>
+<h1 id="优点">优点</h1>
+<ul>
+<li>可以播放wav和mp3格式声音</li>
+<li>可以同时播放多个声音</li>
+<li>可以控制音量大小</li>
+<li>等等</li>
+</ul>
+<h1 id="示范">示范</h1>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">FMOD::Sound *soundBgm;</div><div class="line">SoundPlayer *player;</div><div class="line"></div><div class="line">player = <span class="keyword">new</span> SoundPlayer();</div><div class="line">soundBgm = player-&gt;CreateSound(<span class="string">"sounds/bgm.mp3"</span>); <span class="comment">// 创建声音</span></div><div class="line"></div><div class="line">FMOD::Channel *channel = <span class="literal">NULL</span>;</div><div class="line">player-&gt;playSound(soundBgm, &amp;channel); <span class="comment">// 播放声音</span></div><div class="line">player-&gt;setSoundVolume(channel, <span class="number">0.8</span>); <span class="comment">// 调整音量</span></div></pre></td></tr></table></figure>
+<h1 id="配置项目">配置项目</h1>
+<p>我使用的IDE是Clion，对于项目的配置采用CMake。CMakeLists.txt中配置如下：</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">cmake_minimum_required</span>(VERSION <span class="number">3.7</span>)</div><div class="line"><span class="keyword">project</span>(<span class="number">05052553</span>_week10)</div><div class="line"></div><div class="line"><span class="keyword">set</span>(CMAKE_CXX_FLAGS <span class="string">"$&#123;CMAKE_CXX_FLAGS&#125; -std=c++11 -framework GLUT -framework OpenGL"</span>)</div><div class="line"></div><div class="line"><span class="keyword">set</span>(SOURCE_FILES main.cpp SoundPlayer.cpp SoundPlayer.h)</div><div class="line"><span class="keyword">link_directories</span>(api/lowlevel/lib/)</div><div class="line"><span class="keyword">include_directories</span>(api/lowlevel/inc/)</div><div class="line"><span class="keyword">include_directories</span>(api/lowlevel/examples/)</div><div class="line"></div><div class="line"><span class="keyword">add_executable</span>(<span class="number">05052553</span>_week10 <span class="variable">$&#123;SOURCE_FILES&#125;</span>)</div><div class="line"></div><div class="line"><span class="keyword">target_link_libraries</span>(<span class="number">05052553</span>_week10 fmod)</div><div class="line"><span class="keyword">target_link_libraries</span>(<span class="number">05052553</span>_week10 fmodL)</div></pre></td></tr></table></figure>
+<h1 id="完整代码">完整代码</h1>
+<p>SoundPlayer.h</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//</span></div><div class="line"><span class="comment">// Created by Ethan on 2017/5/1.</span></div><div class="line"><span class="comment">//</span></div><div class="line"></div><div class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> INC_05052553_WEEK10_SOUNDPLAYER_H</span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> INC_05052553_WEEK10_SOUNDPLAYER_H</span></div><div class="line"></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"fmod.hpp"</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"fmod_errors.h"</span></span></div><div class="line"></div><div class="line"><span class="keyword">class</span> SoundPlayer &#123;</div><div class="line"><span class="keyword">private</span>:</div><div class="line"></div><div class="line">    FMOD::System *system;</div><div class="line"></div><div class="line"><span class="keyword">public</span>:</div><div class="line">    SoundPlayer();</div><div class="line"></div><div class="line">    <span class="keyword">virtual</span> ~SoundPlayer();</div><div class="line"></div><div class="line">    FMOD::<span class="function">Sound *<span class="title">CreateSound</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *filePath)</span></span>;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">playSound</span><span class="params">(FMOD::Sound *sound, FMOD::Channel **channel = <span class="number">0</span>)</span></span>;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">setSoundVolume</span><span class="params">(FMOD::Channel *channel, <span class="keyword">float</span> volume = <span class="number">0</span>)</span></span>;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"></div><div class="line"><span class="meta">#<span class="meta-keyword">endif</span> <span class="comment">//INC_05052553_WEEK10_SOUNDPLAYER_H</span></span></div></pre></td></tr></table></figure>
+<p>SoundPlayer.cpp</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//</span></div><div class="line"><span class="comment">// Created by Ethan on 2017/5/1.</span></div><div class="line"><span class="comment">//</span></div><div class="line"></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"SoundPlayer.h"</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;common.h&gt;</span></span></div><div class="line"></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> ERRCHECK(_result) ERRCHECK_fn(_result, __FILE__, __LINE__)</span></div><div class="line"></div><div class="line">FMOD_RESULT result;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">ERRCHECK_fn</span><span class="params">(FMOD_RESULT result, <span class="keyword">const</span> <span class="keyword">char</span> *file, <span class="keyword">int</span> line)</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span> (result != FMOD_OK) &#123;</div><div class="line">        <span class="built_in">printf</span>(<span class="string">"%s(%d): FMOD error %d - %s\r"</span>, file, line, result, FMOD_ErrorString(result));</div><div class="line">        <span class="built_in">exit</span>(<span class="number">1</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">void</span> SoundPlayer::playSound(FMOD::Sound *sound, FMOD::Channel **channel) &#123;</div><div class="line">    result = system-&gt;playSound(sound, <span class="number">0</span>, <span class="literal">false</span>, channel);</div><div class="line">    ERRCHECK(result);</div><div class="line">&#125;</div><div class="line"></div><div class="line">FMOD::Sound *SoundPlayer::CreateSound(<span class="keyword">const</span> <span class="keyword">char</span> *filePath) &#123;</div><div class="line">    FMOD::Sound *sound = <span class="literal">NULL</span>;</div><div class="line">    result = system-&gt;createSound(filePath, FMOD_DEFAULT, <span class="number">0</span>, &amp;sound);</div><div class="line">    ERRCHECK(result);</div><div class="line"></div><div class="line">    result = sound-&gt;setMode(</div><div class="line">            FMOD_LOOP_OFF);    <span class="comment">/* drumloop.wav has embedded loop points which automatically makes looping turn on, */</span></div><div class="line">    ERRCHECK(</div><div class="line">            result);                           <span class="comment">/* so turn it off here.  We could have also just put FMOD_LOOP_OFF in the above CreateSound call. */</span></div><div class="line"></div><div class="line">    <span class="keyword">return</span> sound;</div><div class="line">&#125;</div><div class="line"></div><div class="line">SoundPlayer::SoundPlayer() &#123;</div><div class="line"></div><div class="line">    <span class="keyword">unsigned</span> <span class="keyword">int</span> version;</div><div class="line">    <span class="keyword">void</span> *extradriverdata = <span class="number">0</span>;</div><div class="line"></div><div class="line">    <span class="comment">/*</span></div><div class="line">        Create a System object and initialize</div><div class="line">    */</div><div class="line">    result = FMOD::System_Create(&amp;system);</div><div class="line">    ERRCHECK(result);</div><div class="line"></div><div class="line">    result = system-&gt;getVersion(&amp;version);</div><div class="line">    ERRCHECK(result);</div><div class="line"></div><div class="line">    <span class="keyword">if</span> (version &lt; FMOD_VERSION) &#123;</div><div class="line">        <span class="built_in">printf</span>(<span class="string">"FMOD lib version %08x doesn't match header version %08x"</span>, version, FMOD_VERSION);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    result = system-&gt;init(<span class="number">32</span>, FMOD_INIT_NORMAL, extradriverdata);</div><div class="line">    ERRCHECK(result);</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">void</span> SoundPlayer::setSoundVolume(FMOD::Channel *channel, <span class="keyword">float</span> volume) &#123;</div><div class="line">    result = channel-&gt;setVolume(volume);</div><div class="line">    ERRCHECK(result);</div><div class="line">&#125;</div><div class="line"></div><div class="line">SoundPlayer::~SoundPlayer() &#123;</div><div class="line">    result = system-&gt;close();</div><div class="line">    ERRCHECK(result);</div><div class="line">    result = system-&gt;release();</div><div class="line">    ERRCHECK(result);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+
+                
+
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/2017/05/06/DataBinding模板/" data-toggle="tooltip" data-placement="top" title="DataBinding模板">&larr; Previous Post</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/2017/05/05/Toolbar简单封装/" data-toggle="tooltip" data-placement="top" title="Toolbar简单封装">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+                <!-- Gitment BEGIN -->
+                
+                    <div id="container"></div>
+                    <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+                    <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+                    <script>
+                        var gitment = new Gitment({
+                            owner: 'Ethan0w0',
+                            repo: 'ethan-yt.github.io',
+                            oauth: {
+                                client_id: '2d42e666c6deef94d6d6',
+                                client_secret: '7a9794f20e6b6dbe270550f4eae6bd7540dbf75f',
+                            },
+                        })
+                        gitment.render('container')
+
+                    </script>
+                
+                <!-- Gitment END -->
+                <!-- duoshuo Share start -->
+                
+                <!-- 多说 Share end-->
+
+                <!-- 多说评论框 start -->
+                
+                <!-- 多说评论框 end -->
+
+                <!-- UY BEGIN -->
+                
+                <!-- UY END -->
+                
+                <!-- disqus comment start -->
+                
+                <!-- disqus comment end -->
+            </div>
+            
+            <!-- Tabe of Content -->
+            <!-- Table of Contents -->
+
+    
+      <aside id="sidebar">
+        <div id="toc" class="toc-article">
+        <strong class="toc-title">Contents</strong>
+        
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#优点"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">优点</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#示范"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">示范</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#配置项目"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">配置项目</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#完整代码"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">完整代码</span></a></li></ol>
+        
+        </div>
+      </aside>
+    
+
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#OpenGL" title="OpenGL">OpenGL</a>
+                        
+                          <a class="tag" href="/tags/#C++" title="C++">C++</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'left',
+          icon: 'ℬ'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank" href="https://www.facebook.com/ethan0w0">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/ethan-yt">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank"  href="http://wpa.qq.com/msgrd?v=3&uin=450821350&site=qq&menu=yes">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-qq fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                <li>
+                    <a target="_blank"  href="mailto:ethanyt@qq.com">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+                
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Yan Tan 2017 
+                    <br>
+                    Theme by <a href="http://huangxuan.me">Hux</a> 
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span> 
+                    re-Ported by <a href="http://beantech.org">BeanTech</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("https://ethan-yt.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-96458620-1';
+    var _gaDomain = 'ethan-yt.github.io';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = '247db8eae5b83e7d52fcdbc8f1afa753';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+
+
+
+
+	<a id="rocket" href="#top" class=""></a>
+	<script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+    <script type="text/javascript" src="/js/toc.js?v=1.0.0" async=""></script>
+<!-- Image to hack wechat -->
+<img src="https://ethan-yt.github.io/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

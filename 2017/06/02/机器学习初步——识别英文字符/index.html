@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Enjoy Code Enjoy Life">
+    <meta name="keyword"  content="">
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <title>
+        
+          机器学习初步——识别英文字符 - Ethan&#39;s Tech Blog | 阎覃的技术Blog
+        
+    </title>
+
+    <link rel="canonical" href="https://ethan-yt.github.io/2017/06/02/机器学习初步——识别英文字符/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS --> 
+    <link rel="stylesheet" href="/css/beantech.min.css">
+    
+    <!-- Pygments Highlight CSS -->
+    <link rel="stylesheet" href="/css/highlight.css">
+
+    <link rel="stylesheet" href="/css/widget.css">
+
+    <link rel="stylesheet" href="/css/rocket.css">
+
+    <link rel="stylesheet" href="/css/signature.css">
+
+    <link rel="stylesheet" href="/css/toc.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+	<!-- Modified by Yu-Hsuan Yen -->
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        
+            background-image: url('../../../../img/header_img/tag-bg.png')
+            /*post*/
+        
+    }
+    
+</style>
+
+<header class="intro-header" >
+    <!-- Signature -->
+    <div id="signature">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+                    <div class="post-heading">
+                        <div class="tags">
+                            
+                              <a class="tag" href="/tags/#machine learning" title="machine learning">machine learning</a>
+                            
+                              <a class="tag" href="/tags/#tensorflow" title="tensorflow">tensorflow</a>
+                            
+                        </div>
+                        <h1>机器学习初步——识别英文字符</h1>
+                        <h2 class="subheading"></h2>
+                        <span class="meta">
+                            Posted by Yan Tan on
+                            2017-06-02
+                        </span>
+                    </div>
+                
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+	
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Ethan&#39;s Tech Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archive/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    <!-- Modify by Yu-Hsuan Yen -->
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <p>人工智能课程的期末作业和展示是自选题目完成一项作品，我的team选择了识别字符。本人对机器学习和人工智能没有什么概念，属于初学者，了解了TensorFlow这个工具之后，去<a href="https://www.tensorflow.org" target="_blank" rel="external">官网</a>查阅了一下入门教程，稍作修改，完成了本次期末作业，也对机器学习有了一个初步的概念。</p>
+<p>为了了解什么是机器学习，最简单的实践就是线性拟合。其次是MNIST。</p>
+<blockquote>
+<p>When one learns how to program, there’s a tradition that the first thing you do is print “Hello World.” Just like programming has Hello World, machine learning has MNIST.</p>
+</blockquote>
+<p>MNIST是一个手写数字的数据库，手写数字识别问题可以说是人工智能中的Hello World。</p>
+<p>按照官网的教学，学会了这两个教程之后，就可以做出识别印刷英文字符了。下一步还可以制作验证码识别。</p>
+<p>当然，目前的识别率还不够高，仅仅90%左右，接下来可以进一步学习什么是卷积神经网络，将软件进一步优化，可以极大的提高识别率，最后接近100%。</p>
+<h1 id="成果">成果</h1>
+<p><img src="https://ww2.sinaimg.cn/large/006tNbRwgy1fg6u4c67ptj30du0b1jrx.jpg" alt=""></p>
+<p>软件使用Python语言实现。项目托管至https://github.com/Ethan-yt/letter-recognition</p>
+<p>左边的按钮由上至下是：单步训练，连续训练，清空数据，识别随机单个图片</p>
+<p>按钮下方的勾选框是测试功能，暂时可以无视。</p>
+<p>右边的上面三幅图是权重矩阵W的预览，左下角是测试准确度折线图，右下角是识别单个图片时的目标图片。</p>
+<p>其他的信息都会在控制台输出。</p>
+<h1 id="数据集生成">数据集生成</h1>
+<p><img src="https://ww3.sinaimg.cn/large/006tNbRwgy1fg6u8o61jdj30gl06odg3.jpg" alt=""></p>
+<p>为了训练达到更好的效果，我随机挑选了几个字体。并把他们分成两组，一组是测试集，一组是训练集。这样可以更公平，精确的体现我们的识别效果。</p>
+<p><img src="https://ww2.sinaimg.cn/large/006tNbRwgy1fg6ua3ji60j30bw0303yj.jpg" alt=""></p>
+<p><img src="https://ww4.sinaimg.cn/large/006tNbRwgy1fg6uah8uohj30rb0cydh5.jpg" alt=""></p>
+<p>下一步是将图片预处理，由不同的位置大小转化为统一格式，提升训练的准确度。</p>
+<p>生成单个图片的代码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">ImageChar</span><span class="params">()</span>:</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, font_color=<span class="params">(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>)</span>,</span></span></div><div class="line">                 size=<span class="params">(<span class="number">28</span>, <span class="number">28</span>)</span>,</div><div class="line">                 bg_color=<span class="params">(<span class="number">255</span>, <span class="number">255</span>, <span class="number">255</span>)</span>,</div><div class="line">                 font_size=<span class="number">20</span>):</div><div class="line">        self.size = size</div><div class="line">        self.fontPath = []</div><div class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(font_number):</div><div class="line">            self.fontPath.append(<span class="string">'./fonts/&#123;0&#125;.ttf'</span>.format(i))</div><div class="line"></div><div class="line">        self.bgColor = bg_color</div><div class="line">        self.fontSize = font_size</div><div class="line">        self.fontColor = font_color</div><div class="line">        self.font = []</div><div class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(len(self.fontPath)):</div><div class="line">            self.font.append(ImageFont.truetype(self.fontPath[i], self.fontSize))</div><div class="line">        self.image = <span class="keyword">None</span></div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">draw_letter</span><span class="params">(self, letter, font_index)</span>:</span></div><div class="line"></div><div class="line">        (letterWidth, letterHeight) = self.font[font_index].getsize(letter)</div><div class="line">        self.image = Image.new(<span class="string">'RGB'</span>, (letterWidth, letterHeight), self.bgColor)</div><div class="line">        draw = ImageDraw.Draw(self.image)</div><div class="line">        draw.text((<span class="number">0</span>, <span class="number">0</span>), letter, font=self.font[font_index], fill=self.fontColor)</div><div class="line">        self.image = self.image.resize(self.size)</div><div class="line">        <span class="keyword">del</span> draw</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">save</span><span class="params">(self, path)</span>:</span></div><div class="line">        self.image.save(path)</div></pre></td></tr></table></figure>
+<p>下一步就可以生成多个图片（在这里生成了大写字母）：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span> char <span class="keyword">in</span> (chr(i + <span class="number">65</span>) <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">26</span>)):</div><div class="line">    <span class="keyword">for</span> fontType <span class="keyword">in</span> range(<span class="number">1</span>, font_number):</div><div class="line">        ic = ImageChar()</div><div class="line">        ic.draw_letter(char, fontType)</div><div class="line">        ic.save(<span class="string">'./images/train/'</span> + char + <span class="string">'_'</span> + str(fontType) + <span class="string">".jpeg"</span>)</div><div class="line">    <span class="keyword">for</span> fontType <span class="keyword">in</span> range(<span class="number">0</span>, <span class="number">1</span>):</div><div class="line">        ic = ImageChar()</div><div class="line">        ic.draw_letter(char, fontType)</div><div class="line">        ic.save(<span class="string">'./images/test/'</span> + char + <span class="string">'_'</span> + str(fontType) + <span class="string">".jpeg"</span>)</div></pre></td></tr></table></figure>
+<h1 id="机器学习">机器学习</h1>
+<h2 id="线性拟合问题">线性拟合问题</h2>
+<h3 id="问题描述">问题描述</h3>
+<p>坐标系中有如下几点：</p>
+<p>(1,0) ,(2,-1),(3,-2),(4,-3)</p>
+<p>我们的目标是找到一条直线可以拟合这四点。</p>
+<p>为了便于描述，将x坐标定义为x，y坐标定义为y_</p>
+<p>x =[1,2,3,4]</p>
+<p>y_ =[0,-1,-2,-3]</p>
+<p>最初，W =0.3,b=-0.3，这条直线是这样的：</p>
+<p>y =Wx+b=0.3x-0.3</p>
+<p><img src="https://ww4.sinaimg.cn/large/006tNbRwgy1fg6uh9gs25j30ay064wes.jpg" alt=""></p>
+<p>这时的y(预测值)为</p>
+<p>y = [0,0.3,0.6,0.9]</p>
+<p>显然不是我们想要的结果。我们希望y和y_非常接近，即预测值和真实值接近，这时的线就是想要得到的拟合结果。</p>
+<h3 id="代价函数">代价函数</h3>
+<p>为了衡量这条线究竟离我们想要的线差多少，我们要定义一个代价函数或者损失函数(cost function or loss function)</p>
+<p>loss=∑(y-y_)^2</p>
+<p>这样随着更改W和b的值，y也会随着更改，loss也会更改。当loss越大，说明我们离目标结果越远。loss越小，说明越接近所求直线。</p>
+<p>机器学习就是一个不断更改W和b的过程，每一次更改都会向loss越小的方向更改一个值(比如0.1)，从而逐渐得到想要的结果。</p>
+<p><img src="https://ww2.sinaimg.cn/large/006tNbRwgy1fg6up9ga15j30aw061aac.jpg" alt=""></p>
+<h2 id="识别字符问题">识别字符问题</h2>
+<p>如果理解了上文所述的线性拟合算法，那么接下来的道理是一样的。</p>
+<h4 id="定义输入输出">定义输入输出</h4>
+<p>在这个问题中，也要定义一个x和y，那么x就是输入的图片，y就是输出这个图片是什么字母。</p>
+<p>进一步解释，x是一个二维矩阵（或者将二维展开成一维），每一个点是一个像素，从0到1，越黑的点越接近1。</p>
+<p><img src="https://ww1.sinaimg.cn/large/006tNbRwgy1fg6usu7b9ej30e205j74k.jpg" alt=""></p>
+<p>(Image from <a href="https://www.tensorflow.org/get_started/mnist/beginners" target="_blank" rel="external">https://www.tensorflow.org/get_started/mnist/beginners</a>)</p>
+<p>y是一个一维矩阵，长度是26。比如如果想要表示A，那么就可以写成[1,0,0,0,0…]。将对应为置1即可。</p>
+<h3 id="找到输入输出的关系">找到输入输出的关系</h3>
+<p>所谓找到输入输出的关系，就是找到一个x如何表换才能得到y的方法。类似于上一个问题中提到的y=Wx+b。</p>
+<p>如下：</p>
+<p><img src="https://ww1.sinaimg.cn/large/006tNbRwgy1fg6uw0tat2j308v020dfp.jpg" alt=""></p>
+<p>其中，i是当前的类别。比如i=0代表A，i=1代表B。j是每一个像素点。</p>
+<p>evidence[i]是该图片是i类图片的可信度。也就是越高，就代表这图片越像某个字母。其实在这里可以暂时理解成y[i]。</p>
+<p>W是权重矩阵，每一个类别的每一个像素点都会有一个权重系数，代表当前的点是不是属于该类别。</p>
+<p>b是偏移量，为了矫正和更好的提升准确度。</p>
+<p>这里的核心在于W——权重矩阵。随着训练的进行不断矫正这个系数，这个系数会变成这样：</p>
+<p><img src="https://ww2.sinaimg.cn/large/006tNbRwgy1fg6v0gzmcsj30dl04cdg4.jpg" alt=""></p>
+<p>可以看出，黄色的部分是正值，是每个字母所在的位置（正例）。绿色部分是0，还有深蓝色是负数，是其他字母所在的位置（反例）。</p>
+<p>每一个字母的每一个像素都会乘以相应位置的权重系数，比如当前要识别的图片是A，对于W[B]这个矩阵，得到的evidence[B]将会是一个很小的值，而evidence[A]将会得到一个很大的值。</p>
+<p><img src="https://ww4.sinaimg.cn/large/006tNbRwgy1fg6v5vbnt5j307g01imx0.jpg" alt=""></p>
+<p>softmax是一个机器学习中经常使用的函数，可以将结果更好的传递给y。这类函数通常被称为激活函数。这部分具体是什么本文暂时不讨论，tensorflow会自动实现。</p>
+<p><img src="https://ww3.sinaimg.cn/large/006tNbRwgy1fg6v8ufptoj30gf046aaf.jpg" alt=""></p>
+<p><img src="https://ww2.sinaimg.cn/large/006tNbRwgy1fg6v972055j30fi048jrp.jpg" alt=""></p>
+<p>经过整理，得到了这个方程</p>
+<p><img src="https://ww4.sinaimg.cn/large/006tNbRwgy1fg6v9n490pj307501e0sk.jpg" alt=""></p>
+<h3 id="代价函数">代价函数</h3>
+<p>这里的代价函数和上文中直接相减求距离不同，这里引用了一个广泛用于机器学习的函数，交交叉熵(cross-entropy)</p>
+<p><img src="https://ww2.sinaimg.cn/large/006tNbRwgy1fg6vcwgjz5j307z0253yd.jpg" alt=""></p>
+<p>这里的y’就是y_，具体是什么也无需关注，tensorflow会自动实现。</p>
+<h2 id="参考资料">参考资料</h2>
+<p><a href="https://www.tensorflow.org/get_started/mnist/beginners" target="_blank" rel="external">https://www.tensorflow.org/get_started/mnist/beginners</a></p>
+<p><a href="https://www.tensorflow.org/" target="_blank" rel="external">https://www.tensorflow.org</a><a href="https://www.tensorflow.org/" target="_blank" rel="external">/</a></p>
+<p><a href="https://github.com/tensorflow/tensorflow" target="_blank" rel="external">https://</a><a href="https://github.com/tensorflow/tensorflow" target="_blank" rel="external">github.com/tensorflow/tensorflow</a></p>
+<p><a href="https://matplotlib.org/" target="_blank" rel="external">https://matplotlib.org</a><a href="https://matplotlib.org/" target="_blank" rel="external">/</a></p>
+<p><a href="https://wiki.python.org/moin/TkInter" target="_blank" rel="external">https://</a><a href="https://wiki.python.org/moin/TkInter" target="_blank" rel="external">wiki.python.org/moin/TkInter</a></p>
+<p><a href="http://playground.tensorflow.org/" target="_blank" rel="external">http://playground.tensorflow.org</a><a href="http://playground.tensorflow.org/" target="_blank" rel="external">/</a></p>
+
+                
+
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/2017/07/26/解决Clone GitHub慢的问题/" data-toggle="tooltip" data-placement="top" title="解决Clone GitHub慢的问题">&larr; Previous Post</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/2017/05/16/更新了去年的Java代码/" data-toggle="tooltip" data-placement="top" title="更新了去年的Java代码">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+                <!-- Gitment BEGIN -->
+                
+                    <div id="container"></div>
+                    <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+                    <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+                    <script>
+                        var gitment = new Gitment({
+                            owner: 'Ethan0w0',
+                            repo: 'ethan-yt.github.io',
+                            oauth: {
+                                client_id: '2d42e666c6deef94d6d6',
+                                client_secret: '7a9794f20e6b6dbe270550f4eae6bd7540dbf75f',
+                            },
+                        })
+                        gitment.render('container')
+
+                    </script>
+                
+                <!-- Gitment END -->
+                <!-- duoshuo Share start -->
+                
+                <!-- 多说 Share end-->
+
+                <!-- 多说评论框 start -->
+                
+                <!-- 多说评论框 end -->
+
+                <!-- UY BEGIN -->
+                
+                <!-- UY END -->
+                
+                <!-- disqus comment start -->
+                
+                <!-- disqus comment end -->
+            </div>
+            
+            <!-- Tabe of Content -->
+            <!-- Table of Contents -->
+
+    
+      <aside id="sidebar">
+        <div id="toc" class="toc-article">
+        <strong class="toc-title">Contents</strong>
+        
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#成果"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">成果</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#数据集生成"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">数据集生成</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#机器学习"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">机器学习</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#线性拟合问题"><span class="toc-nav-number">3.1.</span> <span class="toc-nav-text">线性拟合问题</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#问题描述"><span class="toc-nav-number">3.1.1.</span> <span class="toc-nav-text">问题描述</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#代价函数"><span class="toc-nav-number">3.1.2.</span> <span class="toc-nav-text">代价函数</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#识别字符问题"><span class="toc-nav-number">3.2.</span> <span class="toc-nav-text">识别字符问题</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#定义输入输出"><span class="toc-nav-number">3.2.0.1.</span> <span class="toc-nav-text">定义输入输出</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#找到输入输出的关系"><span class="toc-nav-number">3.2.1.</span> <span class="toc-nav-text">找到输入输出的关系</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#代价函数"><span class="toc-nav-number">3.2.2.</span> <span class="toc-nav-text">代价函数</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#参考资料"><span class="toc-nav-number">3.3.</span> <span class="toc-nav-text">参考资料</span></a></li></ol></li></ol>
+        
+        </div>
+      </aside>
+    
+
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#machine learning" title="machine learning">machine learning</a>
+                        
+                          <a class="tag" href="/tags/#tensorflow" title="tensorflow">tensorflow</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'left',
+          icon: 'ℬ'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank" href="https://www.facebook.com/ethan0w0">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/ethan-yt">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank"  href="http://wpa.qq.com/msgrd?v=3&uin=450821350&site=qq&menu=yes">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-qq fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                <li>
+                    <a target="_blank"  href="mailto:ethanyt@qq.com">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+                
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Yan Tan 2017 
+                    <br>
+                    Theme by <a href="http://huangxuan.me">Hux</a> 
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span> 
+                    re-Ported by <a href="http://beantech.org">BeanTech</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("https://ethan-yt.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-96458620-1';
+    var _gaDomain = 'ethan-yt.github.io';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = '247db8eae5b83e7d52fcdbc8f1afa753';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+
+
+
+
+	<a id="rocket" href="#top" class=""></a>
+	<script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+    <script type="text/javascript" src="/js/toc.js?v=1.0.0" async=""></script>
+<!-- Image to hack wechat -->
+<img src="https://ethan-yt.github.io/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

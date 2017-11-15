@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Enjoy Code Enjoy Life">
+    <meta name="keyword"  content="">
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <title>
+        
+          About - Ethan&#39;s Tech Blog | 阎覃的技术Blog
+        
+    </title>
+
+    <link rel="canonical" href="https://ethan-yt.github.io/about/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS --> 
+    <link rel="stylesheet" href="/css/beantech.min.css">
+    
+    <!-- Pygments Highlight CSS -->
+    <link rel="stylesheet" href="/css/highlight.css">
+
+    <link rel="stylesheet" href="/css/widget.css">
+
+    <link rel="stylesheet" href="/css/rocket.css">
+
+    <link rel="stylesheet" href="/css/signature.css">
+
+    <link rel="stylesheet" href="/css/toc.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+	<!-- Modified by Yu-Hsuan Yen -->
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        
+            background-image: url('/img/header_img/Iron-Man-3.jpg')
+            /*page*/
+        
+    }
+    
+</style>
+
+<header class="intro-header" >
+    <!-- Signature -->
+    <div id="signature">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+                    <div class="site-heading">
+                        <h1>About</h1>
+                        <!--<hr class="small">-->
+                        <span class="subheading">Enjoy Code Enjoy Life</span>
+                    </div>
+                
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+	
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Ethan&#39;s Tech Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archive/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    <!-- Main Content -->
+<div class="container">
+    <div class="row">
+        
+
+<!-- USE SIDEBAR -->
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-1
+                col-md-8 col-md-offset-1
+                col-sm-12
+                col-xs-12
+                post-container
+            ">
+            
+                <ul>
+<li>阎覃(Yan Tan) / 男 / 江南大学 / 大三 / 计算机科学与技术专业</li>
+<li>Email：<a href="mailto:ethanyt@qq.com" target="_blank" rel="external">ethanyt@qq.com</a></li>
+</ul>
+<ul>
+<li>热爱编程，具有创新思维，曾参与多个项目的设计与开发。</li>
+<li>自学能力强，可以在短时间内通过查阅中英文资料学会一种语言或者技术。</li>
+<li>对代码的整洁度要求较高，经常在项目中练习使用各种设计模式。</li>
+</ul>
+<h1 id="项目经历">项目经历</h1>
+<h3 id="竹间社团国家级大学生创新项目-一项软件著作权"><a href="https://github.com/Ethan-yt/MyClub" target="_blank" rel="external">竹间社团</a>（国家级大学生创新项目 / 一项软件著作权）</h3>
+<p>竹间社团是一款面向高校社团的移动应用。本人作为<strong>项目负责人</strong>，负责开发Android客户端(代码超过<strong>两万行</strong>)，撰写<strong>开发文档</strong>。客户端使用<strong>MVVM</strong>架构，设计上遵循Material Design，技术上包括<strong>HTTP、异步、函数式编程、推送、热更新、短信验证</strong>等，使用了许多开源框架，例如RxJava、Retrofit、Glide、JSoup、Gson等。</p>
+<div style="text-align:center;">
+<iframe src="https://appetize.io/embed/8c0hzmgn4yfhqw7qrtr8ajma54?device=nexus5&scale=50&autoplay=true&orientation=portrait&deviceColor=white" width="200px" height="398px" frameborder="0" scrolling="no"></iframe>
+</div>
+<p><img src="https://ww1.sinaimg.cn/large/006tNc79gy1ffbpp2d42dj30d608dq34.jpg" alt="竹间社团"></p>
+<h3 id="智能电动车充电管理系统全国大学生服务外包创新创业大赛三等奖-一项专利"><a href="https://github.com/Ethan-yt/SMMS" target="_blank" rel="external">智能电动车充电管理系统</a>（全国大学生服务外包创新创业大赛三等奖 / 一项专利）</h3>
+<p>该系统实现了对电动车的充电监控，计费和管理。本人负责上位机。使用C#语言，<strong>MVVM架构，WPF界面框架</strong>。技术上包括<strong>串口通信、智能电表、RFID</strong>。</p>
+<iframe height="500" width="100%" src="https://player.youku.com/embed/XMTY1Njg4NTkyMA==" frameborder="0" allowfullscreen> </iframe>
+<h3 id="超市管理系统大二的数据库课程设计">超市管理系统（大二的数据库课程设计）</h3>
+<p>该系统以超市管理为模型，实现了对数据库(SQLite)的操作。采用C#语言，WPF界面框架和MVVM架构。并且使用了一些开源框架。</p>
+<p><img src="https://ww2.sinaimg.cn/large/006tNc79gy1ffbpoye6igj30f40b474h.jpg" alt="数据库"></p>
+<h3 id="离散数学大一的期末作业">离散数学（大一的期末作业）</h3>
+<p>当时大家普遍只会C语言，所以老师的要求并不高，在控制台完成2~3题的算法即可。不过我对自己的要求比较高，并且出于爱好，使用C#语言完成了老师布置的11道题目，并且实现了矩阵、图的可视化编辑。</p>
+<p><img src="https://ww1.sinaimg.cn/large/006tNc79gy1ffbpoqgl30j30bk06wmx8.jpg" alt="离散数学"></p>
+
+
+                <!-- 如果开启评论功能 -->
+                
+                    <hr>
+                    <!-- Gitment BEGIN -->
+                    
+                        <div id="container"></div>
+                        <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+                        <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+                        <script>
+                            var gitment = new Gitment({
+                                owner: 'Ethan0w0',
+                                repo: 'ethan-yt.github.io',
+                                oauth: {
+                                    client_id: '2d42e666c6deef94d6d6',
+                                    client_secret: '7a9794f20e6b6dbe270550f4eae6bd7540dbf75f',
+                                },
+                            })
+                            gitment.render('container')
+
+                        </script>
+                    
+                    <!-- Gitment END -->
+                    
+                    
+                    
+                    <!-- UY BEGIN -->
+                    
+                    <!-- UY END -->
+
+                    
+
+
+                    
+
+                    
+                
+            </div>
+
+          <!-- Sidebar Container -->
+<div class="
+    col-lg-3 col-lg-offset-0
+    col-md-3 col-md-offset-0
+    col-sm-12
+    col-xs-12
+    sidebar-container
+">
+    
+        <!-- Featured Tags -->
+
+<section>
+    <!-- no hr -->
+    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+    <div class="tags">
+        
+            
+            <a href="/tags/#android" title="android" rel="5">android</a>
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+            <a href="/tags/#baseActivity" title="baseActivity" rel="2">baseActivity</a>
+            
+        
+            
+        
+            
+            <a href="/tags/#GitHub" title="GitHub" rel="2">GitHub</a>
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    </div>
+</section>
+
+        <hr>
+    
+        <!-- Short About -->
+<section class="visible-md visible-lg">
+    <h5><a href="/about/">ABOUT ME</a></h5>
+    <div class="short-about">
+
+        
+            <img id = "avatar_pic" src="/img/avatar.png" />
+        
+
+        
+            <p>A CS student interested in programing.</p>
+        
+
+        <!-- SNS Link -->
+        <ul class="list-inline">
+            
+            
+            
+
+            
+
+            
+                <li>
+                    <a target="_blank" href="https://www.facebook.com/ethan0w0">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+            
+
+            
+                <li>
+                    <a target="_blank"  href="https://github.com/ethan-yt">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+            
+            
+                <li>
+                    <a target="_blank"  href="http://wpa.qq.com/msgrd?v=3&uin=450821350&site=qq&menu=yes">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-qq fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+            
+            
+                <li>
+                    <a target="_blank"  href="mailto:ethanyt@qq.com">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+            
+            
+        </ul>
+    </div>
+</section>
+        <hr>
+    
+        
+  <h5>RECENT POSTS</h3>
+  <div class="widget">
+    <ul>
+      
+        <li>
+          <a href="/2017/09/21/使用Github Webhooks实现自动化部署/">使用Github Webhooks实现自动化部署</a>
+        </li>
+      
+        <li>
+          <a href="/2017/07/26/解决Clone GitHub慢的问题/">解决Clone GitHub慢的问题</a>
+        </li>
+      
+        <li>
+          <a href="/2017/06/02/机器学习初步——识别英文字符/">机器学习初步——识别英文字符</a>
+        </li>
+      
+        <li>
+          <a href="/2017/05/16/更新了去年的Java代码/">更新了去年的Java代码</a>
+        </li>
+      
+        <li>
+          <a href="/2017/05/06/编译时自动递增版本号/">编译时自动递增版本号</a>
+        </li>
+      
+    </ul>
+  </div>
+
+        <hr>
+    
+        <!-- Categories -->
+
+        <hr>
+    
+</div>
+
+        
+    </div>
+</div>
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank" href="https://www.facebook.com/ethan0w0">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/ethan-yt">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a target="_blank"  href="http://wpa.qq.com/msgrd?v=3&uin=450821350&site=qq&menu=yes">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-qq fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+                
+                <li>
+                    <a target="_blank"  href="mailto:ethanyt@qq.com">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+                
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Yan Tan 2017 
+                    <br>
+                    Theme by <a href="http://huangxuan.me">Hux</a> 
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span> 
+                    re-Ported by <a href="http://beantech.org">BeanTech</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("https://ethan-yt.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-96458620-1';
+    var _gaDomain = 'ethan-yt.github.io';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = '247db8eae5b83e7d52fcdbc8f1afa753';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+
+
+
+
+	<a id="rocket" href="#top" class=""></a>
+	<script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+    <script type="text/javascript" src="/js/toc.js?v=1.0.0" async=""></script>
+<!-- Image to hack wechat -->
+<img src="https://ethan-yt.github.io/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>
