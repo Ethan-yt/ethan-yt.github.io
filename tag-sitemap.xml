@@ -100,20 +100,6 @@
     </url>
 
     <url>
-        <loc>https://ethan-yt.github.io/tags/machine-learning/</loc>
-        <lastmod>2017-11-15T00:24:13.000Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://ethan-yt.github.io/tags/tensorflow/</loc>
-        <lastmod>2017-11-15T00:24:13.000Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
         <loc>https://ethan-yt.github.io/tags/java/</loc>
         <lastmod>2017-11-15T00:24:13.000Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -122,6 +108,20 @@
 
     <url>
         <loc>https://ethan-yt.github.io/tags/homework/</loc>
+        <lastmod>2017-11-15T00:24:13.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://ethan-yt.github.io/tags/machine-learning/</loc>
+        <lastmod>2017-11-15T00:24:13.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://ethan-yt.github.io/tags/tensorflow/</loc>
         <lastmod>2017-11-15T00:24:13.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
