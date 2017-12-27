@@ -12,11 +12,11 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         
-          使用Github Webhooks实现自动化部署 - Ethan&#39;s Tech Blog | 阎覃的技术Blog
+          基于Github Webhooks和Docker的自动化部署 - Ethan&#39;s Tech Blog | 阎覃的技术Blog
         
     </title>
 
-    <link rel="canonical" href="https://ethan-yt.github.io/2017/09/21/使用Github Webhooks实现自动化部署/">
+    <link rel="canonical" href="https://ethan-yt.github.io/2017/09/21/基于Github Webhooks和Docker的自动化部署/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -91,7 +91,7 @@
                               <a class="tag" href="/tags/#Node" title="Node">Node</a>
                             
                         </div>
-                        <h1>使用Github Webhooks实现自动化部署</h1>
+                        <h1>基于Github Webhooks和Docker的自动化部署</h1>
                         <h2 class="subheading"></h2>
                         <span class="meta">
                             Posted by Yan Tan on
@@ -142,14 +142,14 @@
 
                         
                         <li>
-                            <a href="/about/">About</a>
+                            <a href="/archive/">Archives</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/archive/">Archives</a>
+                            <a href="/about/">About</a>
                         </li>
                         
                     
@@ -212,11 +212,12 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <p>本文主要描述使用Github Webhooks+docker进行自动化部署的配置过程。配置完成后，只要在本地执行git push，服务器就会自动执行拉取最新的代码，并重新启动容器。</p>
+                <p>本文主要描述基于Github Webhooks+docker进行自动化部署的配置过程。配置完成后，只要在本地执行git push，服务器就会自动执行拉取最新的代码，并重新启动容器。</p>
+<p>代码：<a href="https://github.com/Ethan-yt/webhook-server" target="_blank" rel="external">https://github.com/Ethan-yt/webhook-server</a></p>
 <h2 id="clone应用">Clone应用</h2>
 <p>以下代码在服务器执行</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cd</div><div class="line">git clone https://github.com/Ethan-yt/node-test.git</div></pre></td></tr></table></figure>
-<p>这里是被部署的应用代码</p>
+<p>这里是被部署的应用代码，地址要换成你自己的，这里的是我的私有仓库。</p>
 <p>里面要有一个Dockerfile</p>
 <figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">FROM</span> node:latest </div><div class="line"></div><div class="line"><span class="keyword">ENV</span> PORT <span class="number">8000</span></div><div class="line"></div><div class="line"><span class="keyword">COPY</span> . /app</div><div class="line"><span class="keyword">WORKDIR</span> /app</div><div class="line"></div><div class="line"><span class="keyword">RUN</span> npm install</div><div class="line"></div><div class="line"><span class="keyword">EXPOSE</span> <span class="number">8000</span></div><div class="line"></div><div class="line"><span class="keyword">CMD</span> ["npm", "start"]</div></pre></td></tr></table></figure>
 <p>其中 <code>/app</code>目录是容器中代码的位置，可以任意配置，问题不大。</p>
@@ -231,7 +232,7 @@
 <p>server.js中：</p>
 <ol>
 <li>访问deploy时，登录服务器ssh，并且执行一些命令。</li>
-<li>pull最新的改动</li>
+<li>切换到提交的分支，并且拉取最新的改动</li>
 <li>删除当前正在运行的容器，镜像</li>
 <li>根据pull的代码创建新镜像</li>
 <li>运行应用</li>
@@ -242,14 +243,15 @@
 <p>–no-cache 禁止缓存</p>
 <p>-t 给镜像一个标签</p>
 <h2 id="运行部署服务器容器">运行部署服务器容器</h2>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker run <span class="_">-d</span> -p 18340:18340 --name=webhook-server webhook-server</div></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker run <span class="_">-d</span> -p 18340:18340 -v ~/webhook-key/:/webhook-key/ --name=webhook-server webhook-server</div></pre></td></tr></table></figure>
 <p>-d (–detach) 后台运行</p>
 <p>-p 将容器的端口18340（右边）绑定到18340（左边）</p>
 <p>–name 给容器命名</p>
+<p>这里将私钥存到<code>~/webhook-key/</code>目录，通过参数<code>-v</code>共享给容器，</p>
 <h2 id="ssh免密码登录">ssh免密码登录</h2>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">sudo docker <span class="built_in">exec</span> -it webhook-server /bin/bash</div><div class="line">ssh-keygen -t rsa</div><div class="line">scp ~/.ssh/id_rsa.pub [username]@[host]:~/.ssh/webhook-server_id_rsa.pub</div><div class="line"><span class="built_in">exit</span></div><div class="line"></div><div class="line">cat ~/.ssh/webhook-server_id_rsa.pub &gt;&gt; ~/.ssh/authorized_keys</div><div class="line">chmod 600 ~/.ssh/authorized_keys</div></pre></td></tr></table></figure>
-<p>进入容器的shell，然后创建密钥对，最后在主机上加入容器的公钥。</p>
-<p>在<code>server.js</code>中会有私钥的位置，这里默认是<code>/root/.ssh/id_rsa</code></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">cd</span></div><div class="line">mkdir webhook-key &amp;&amp; <span class="built_in">cd</span> webhook-key</div><div class="line">ssh-keygen -t rsa</div><div class="line">// 命名为 key</div><div class="line">cat key.pub &gt;&gt; ~/.ssh/authorized_keys</div><div class="line">chmod 600 ~/.ssh/authorized_keys</div></pre></td></tr></table></figure>
+<p>创建密钥对，最后加入公钥。</p>
+<p>在<code>server.js</code>中会有私钥的位置，即<code>'/webhook-key/key'</code>。</p>
 <h2 id="记住github账号和密码">记住github账号和密码</h2>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">cd ~</div><div class="line">echo https://[username]:[password]@github.com &gt; .git-credentials</div><div class="line">git config --global credential.helper store</div></pre></td></tr></table></figure>
 <h2 id="设定github-webhooks">设定Github Webhooks</h2>

@@ -65,13 +65,6 @@
     </url>
 
     <url>
-        <loc>https://ethan-yt.github.io/tags/baseActivity/</loc>
-        <lastmod>2017-11-15T00:24:12.000Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
         <loc>https://ethan-yt.github.io/tags/toolbar/</loc>
         <lastmod>2017-11-15T00:24:12.000Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -79,21 +72,7 @@
     </url>
 
     <url>
-        <loc>https://ethan-yt.github.io/tags/GitHub/</loc>
-        <lastmod>2017-11-15T00:24:12.000Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://ethan-yt.github.io/tags/Docker/</loc>
-        <lastmod>2017-11-15T00:24:12.000Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://ethan-yt.github.io/tags/Node/</loc>
+        <loc>https://ethan-yt.github.io/tags/baseActivity/</loc>
         <lastmod>2017-11-15T00:24:12.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
@@ -123,6 +102,27 @@
     <url>
         <loc>https://ethan-yt.github.io/tags/tensorflow/</loc>
         <lastmod>2017-11-15T00:24:13.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://ethan-yt.github.io/tags/GitHub/</loc>
+        <lastmod>2017-12-27T16:09:29.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://ethan-yt.github.io/tags/Docker/</loc>
+        <lastmod>2017-12-27T16:09:29.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://ethan-yt.github.io/tags/Node/</loc>
+        <lastmod>2017-12-27T16:09:29.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
