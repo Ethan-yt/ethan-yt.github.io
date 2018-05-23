@@ -130,13 +130,6 @@
 
                         
                         <li>
-                            <a href="/archive/">Archives</a>
-                        </li>
-                        
-                    
-
-                        
-                        <li>
                             <a href="/about/">About</a>
                         </li>
                         
@@ -145,6 +138,13 @@
                         
                         <li>
                             <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archive/">Archives</a>
                         </li>
                         
                     
@@ -347,7 +347,38 @@ Project的格式是IntelliJ IDEA，它是一款优秀的IDE，希望真正想学
 
 <div class="post-preview">
 
-    <a href="/2017/05/06/编译时自动递增版本号/">
+    <a href="/2017/05/06/使用Digital Ocean无法访问谷歌学术的解决方案/">
+        <h2 class="post-title">
+            使用Digital Ocean无法访问谷歌学术的解决方案
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            Digital Ocean的VPS多个IP因为被谷歌学术封禁导致无法访问，本文提供了一种解决方案。
+主要的思路是修改VPS的hosts，使用IPv6绕过谷歌的封禁。
+1.ssh连接服务器，vim /etc/hosts。
+2.加入以下内容。（IP也许会随时间失效，最新IP请参考https://raw.githubusercontent.com/lennylxx/ipv6-hosts/maste......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by Yan Tan on
+            2017-05-06
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#Google scholar" title="Google scholar">Google scholar</a>
+            
+        </div>
+    
+
+</div>
+<hr>
+
+<div class="post-preview">
+
+    <a href="/2017/05/06/编译时自动递增版本号的副本/">
         <h2 class="post-title">
             编译时自动递增版本号
         </h2>
@@ -519,49 +550,16 @@ Toolb......
 </div>
 <hr>
 
-<div class="post-preview">
-
-    <a href="/2017/03/31/Retrofit优雅封装/">
-        <h2 class="post-title">
-            Retrofit优雅封装
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            安卓的Retrofit是一个优秀的网络封装库，和Rxjava结合能发挥更好的优势，虽然Retrofit已经封装了大量的代码，可是结合自己的实际使用时，往往还会重复写下许多代码。通过一套优雅的封装，可以为以后每次请求省下不少代码。
-总的来说，通过封装，实现了以下几点
-
-统一添加Headers，实现OAuth 2.0请求
-在接口中不必出现ApiResponse这种包装，直接填写数据类型
-统一对H......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by Yan Tan on
-            2017-03-31
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#android" title="android">android</a>
-            
-              <a href="/tags/#retrofit" title="retrofit">retrofit</a>
-            
-              <a href="/tags/#rxjava" title="rxjava">rxjava</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
 
 
 <!-- Pager -->
 
 <ul class="pager">
     
+    
+        <li class="next">
+            <a href="/archives/2/">Older Posts &rarr;</a>
+        </li>
     
 </ul>
 
@@ -602,8 +600,6 @@ Toolb......
             
         
             
-        
-            
             <a href="/tags/#baseActivity" title="baseActivity" rel="2">baseActivity</a>
             
         
@@ -616,11 +612,15 @@ Toolb......
             
         
             
+        
+            
+        
+            
+        
+            
+        
+            
             <a href="/tags/#GitHub" title="GitHub" rel="2">GitHub</a>
-            
-        
-            
-        
             
         
             
@@ -724,7 +724,7 @@ Toolb......
         </li>
       
         <li>
-          <a href="/2017/05/06/编译时自动递增版本号/">编译时自动递增版本号</a>
+          <a href="/2017/05/06/使用Digital Ocean无法访问谷歌学术的解决方案/">使用Digital Ocean无法访问谷歌学术的解决方案</a>
         </li>
       
     </ul>
@@ -801,7 +801,7 @@ Toolb......
 
                 </ul>
                 <p class="copyright text-muted">
-                    Copyright &copy; Yan Tan 2017 
+                    Copyright &copy; Yan Tan 2018 
                     <br>
                     Theme by <a href="http://huangxuan.me">Hux</a> 
                     <span style="display: inline-block; margin: 0 5px;">
